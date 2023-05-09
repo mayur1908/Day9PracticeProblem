@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AddressBook
 {
@@ -19,16 +16,17 @@ namespace AddressBook
 
         public Contact(string firstName, string lastName, string address, string city, string state, string zip, string phoneNumber, string email)
         {
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Address = address;
-            this.City = city;
-            this.State = state;
-            this.Zip = zip;
-            this.PhoneNumber = phoneNumber;
-            this.Email = email;
+            FirstName = firstName;
+            LastName = lastName;
+            Address = address;
+            City = city;
+            State = state;
+            Zip = zip;
+            PhoneNumber = phoneNumber;
+            Email = email;
         }
     }
+
     class AddressBook
     {
         private List<Contact> contacts;
@@ -58,6 +56,7 @@ namespace AddressBook
                 Console.WriteLine();
             }
         }
+
         public bool EditContact(string firstName, string lastName)
         {
             Contact contact = FindContact(firstName, lastName);
@@ -106,6 +105,29 @@ namespace AddressBook
                 Console.WriteLine("Contact not found.");
                 return false;
             }
+        }
+
+        public bool DeleteContact(string firstName, string lastName)
+        {
+            Contact contact = FindContact(firstName, lastName);
+            if (contact != null)
+            {
+                contacts.Remove(contact);
+                Console.WriteLine("Contact deleted successfully.");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Contact not found.");
+                return false;
+            }
+        }
+
+        private Contact FindContact(string firstName, string lastName)
+        {
+            return contacts.Find(contact =>
+                contact.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase) &&
+                contact.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
         }
     }
 }
